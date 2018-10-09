@@ -1,0 +1,41 @@
+﻿
+a=100
+name="fex"
+isDie=false
+
+person={
+name="fex",age="22",12,12,13,false,3.4,
+eat=function(self,a,b)   --声明方法1：self为该表自身的参数，类似C#中this
+	print(a+b)
+	print("我吃了")
+end
+
+}
+--[[
+--声明方法2：
+function person:eat(a,b)
+	print(a+b)
+end
+
+--声明方法3：
+function person.eat(self,a,b)
+	print(a+b)
+end
+--]]
+
+--无参无返回值的全局function
+function AddNum()
+	print("addNum function is called")
+end
+
+--有参的无返回值的全局function
+function Add(a,b)
+	print("a".."+".."b="..a+b)
+end
+
+--有参，有返回的全局function(),包括多个返回值
+function AddRes(a,b)
+	print("a".."+".."b="..a+b)
+	return a+b,a,b
+end
+

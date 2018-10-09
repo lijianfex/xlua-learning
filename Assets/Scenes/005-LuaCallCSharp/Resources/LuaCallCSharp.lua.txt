@@ -1,0 +1,73 @@
+﻿--new C#对象
+
+--[[
+local newGameObj = CS.UnityEngine.GameObject()
+--创建名称为helloworld的物体
+local newGameObj2 = CS.UnityEngine.GameObject('helloworld')
+--创建一个Sphere(球体)
+local newSphere=CS.UnityEngine.GameObject.CreatePrimitive(0)
+print(newGameObj)
+print(newGameObj2)
+print(newSphere)
+--]]
+
+--访问静态属性，方法
+--[[
+local GameObject = CS.UnityEngine.GameObject --获取GameObject类
+local Camera=CS.UnityEngine.Camera --获取Camera类
+--小技巧：如果需要经常访问的类，可以先用局部变量引用后访问，除了减少敲代码的时间，还能提高性能
+
+print('UnityEngine.Time.deltaTime:', CS.UnityEngine.Time.deltaTime) --读静态属性
+CS.UnityEngine.Time.timeScale = 0.5 --写静态属性
+
+local cameraObj=GameObject.Find('Main Camera')--静态方法调用
+cameraObj.name="Main Camera by Lua" --修改主相机name属性
+
+print(Camera.main.name)
+--]]
+
+--访问成员属性，方法
+--[[
+local GameObject = CS.UnityEngine.GameObject --获取GameObject类
+local camera=GameObject.Find('Main Camera')--静态方法调用
+
+audiolistener=camera:GetComponent("AudioListener") --访问成员函数，使用冒号，不需要传递自身
+
+audiolistener.enabled=false  --访问成员属性，并设置
+
+isActive=audiolistener.isActiveAndEnabled
+
+if isActive then
+	print("audiolistener isActive:true")
+else
+	print("audiolistener isActive:false")
+end
+--]]
+
+
+local DrivenClass = CS.DrivenClass
+local testobj = DrivenClass()
+
+--基类属性，方法
+--[[
+print(DrivenClass.BSF)--读基类静态属性
+DrivenClass.BSF = 2048--写基类静态属性
+DrivenClass.BSFunc();--基类静态方法
+
+print(testobj.BMF)--读基类成员属性
+testobj.BMF = 4096--写基类成员属性
+testobj:BMFunc()--基类方法调用
+--]]
+
+--复杂方法调用
+--[[
+local ret, p2, p3, csfunc = testobj:ComplexFunc({x=3, y = 'john'}, 100, function()
+   print('i am lua callback')
+end)
+print('ComplexFunc ret:', ret, p2, p3, csfunc)
+csfunc()
+--]]
+
+ --重载方法调用
+ testobj:TestFunc(100)
+ testobj:TestFunc('hello')
